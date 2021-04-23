@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css">
+    <title>Control Temperatura</title>
+    <style>
+        .ui.massive.center.aligned.icon.header {
+            margin-top: 1em;
+        }
+
+        .circular.segment {
+            width: 350px;
+            height: 350px;
+        }
+
+        .ui.circular.segment {
+            display: flex;
+            align-items: center;
+        }
+
+        .ui.statistic>.label,
+        .ui.statistics .statistic>.label {
+            font-size: 1.3rem;
+        }
+
+        .label.k {
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ui center aligned container" id="container" style="display: none;">
+        <br>
+        <div class="two column stackable ui grid">
+            <div class="column">
+                <div class="ui huge statistic">
+                    <div class="ui black inverted circular segment">
+                        <i class="massive green thermometer half icon"></i>
+                        <span class="ui huge green text">{{tempActual}}&nbsp;°C</span>
+                    </div>
+                    <div class="label k">Temperatura Actual</div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="ui huge statistic">
+                    <div class="ui black inverted circular segment">
+                        <i class="massive green thermometer half icon"></i>
+                        <span class="ui huge green text">{{tempIdeal}}&nbsp;°C</span>
+                    </div>
+                    <div class="label">
+                        <button class="ui circular icon blue button" onclick="tempIdealLower()"><i
+                                class="chevron circle down icon"></i></button>
+                        &nbsp;Temperatura Ideal&nbsp;
+                        <button class="ui circular icon red button" onclick="tempIdealRise()"><i
+                                class="chevron circle up icon"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="ui center aligned container">
+                <div class="ui statistic">
+                    <div class="value">
+                        <i class="power off icon" v-if="heaterStatus == 0 && fanStatus == 0"></i>
+                        <i class="red fire alternate icon" v-if="heaterStatus == 1"></i>
+                        <i class="blue fan icon" v-if="fanStatus == 1"></i>&nbsp;Estado Actual
+                    </div>
+                </div>
+                <div class="ui inverted three item labeled icon menu">
+                    <a class="item" v-if="opStatus == 1" onclick="changeFanStatus()">
+                        <i class="blue fan icon" v-if="fanStatus == 1"></i>
+                        <i class="grey fan icon" v-if="fanStatus == 0"></i>VENTILADOR
+                    </a>
+                    <a class="item" onclick="changeOpStatus()">
+                        <i class="exchange alternate icon"></i> OPERACIÓN
+                        <span v-if="opStatus == 1">MANUAL</span>
+                        <span v-if="opStatus == 0">AUTOMÁTICA</span>
+                    </a>
+                    <a class="item" v-if="opStatus == 1" onclick="changeHeaterStatus()">
+                        <i class="red fire alternate icon" v-if="heaterStatus == 1"></i>
+                        <i class="grey fire alternate icon" v-if="heaterStatus == 0"></i>CALENTADOR
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui active slow green double large loader" id="loader"></div>
+    <script src="loader.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/vue.js"></script>
+    <script src="/script.js"></script>
+</body>
+
+</html>
