@@ -1,0 +1,2 @@
+# ControlTemperatura
+Control de temperatura para un sistema embebido, este cuenta con un sensor de temperatura, un calentador para agua de 120 v y un ventilador de 12 v. El control es realizado por medio de arduino y de igual forma por medio de un servicio web, para ello se utilizo Node.js. De igual forma se realiza un constante registro de temperatura, el registro es guardado en un archivo separado por comas (CSV). Otras de las herramientas utilizadas en este proyecto son: vue.js, express.js, socket.io y serialport.
